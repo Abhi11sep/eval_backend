@@ -4,7 +4,17 @@ const { PostModel } = require('../models/postModel')
 
 postRouter.get("/", async (req, res) => {
     try {
-        const post = await PostModel.find()
+        const post = await PostModel.find({ "userID": req.body.userID })
+        res.send(post)
+    } catch (error) {
+        res.send("Unable to fetch posts")
+    }
+})
+
+postRouter.get("/filter", async (req, res) => {
+    let query = req.query
+    try {
+        const post = await PostModel.find(query)
         res.send(post)
     } catch (error) {
         res.send("Unable to fetch posts")
