@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const { connection } = require('./configs/db')
-const {authentication} =require('./middlewares/auth')
+const { authentication } = require('./middlewares/auth')
+const { userRouter } = require('./routes/userRoutes')
+const { postRouter } = require('./routes/postRoutes')
 
 app.use(cors({
     origin: "*"
@@ -11,7 +14,7 @@ app.use(express.json())
 app.use("/users", userRouter)
 
 app.use(authentication)
-app.use("/post", postRouter)
+app.use("/posts", postRouter)
 
 
 app.listen(8080, async (req, res) => {
